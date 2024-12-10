@@ -1,46 +1,34 @@
-# tmux-examo-mac
-
-
 # Habilitar el uso del mouse
 set -g mouse on
 
 # Incrementar el límite de historial
 set -g history-limit 5000
 
-# Usar prefix como Ctrl + a en lugar de Ctrl + b (más ergonómico en teclados Mac)
-set-option -g prefix C-a
+# Usar prefix Shift + A (Shift actúa como modificador primario)
+set-option -g prefix S-a
 unbind C-b
-bind C-a send-prefix
+bind S-a send-prefix
 
-# Remapear las teclas Option y Command
-# Nota: Option (⌥) se usa como Meta en muchas configuraciones. Command no tiene un mapeo directo.
-set -g xterm-keys on
+# Atajos usando Shift
 
-# Rebind para facilitar el uso en Mac:
-# Command + t para crear nueva ventana
-bind t new-window
+# Shift + T: Crear una nueva ventana
+bind T new-window
 
-# Command + w para cerrar ventana
-bind w kill-window
+# Shift + W: Cerrar ventana
+bind W kill-window
 
-# Command + → para moverse al siguiente panel
-bind -n M-Right select-pane -R
+# Navegación entre paneles con Shift + flechas
+bind -n S-Right select-pane -R
+bind -n S-Left select-pane -L
+bind -n S-Up select-pane -U
+bind -n S-Down select-pane -D
 
-# Command + ← para moverse al panel anterior
-bind -n M-Left select-pane -L
+# Recargar configuración con Shift + R
+bind R source-file ~/.tmux.conf \; display-message "Configuración recargada"
 
-# Command + ↑ para moverse arriba
-bind -n M-Up select-pane -U
-
-# Command + ↓ para moverse abajo
-bind -n M-Down select-pane -D
-
-# Recargar configuración con Command + r
-bind r source-file ~/.tmux.conf \; display-message "Configuración recargada"
-
-# Dividir paneles (más accesible con Option/Meta)
-bind | split-window -h
-bind - split-window -v
+# Dividir paneles
+bind S-\ split-window -h  # Dividir horizontalmente
+bind S-| split-window -v  # Dividir verticalmente
 
 # Estilo de barra de estado
 set-option -g status-bg black
@@ -51,7 +39,3 @@ set-option -g status-interval 5
 
 set-option -g status-left '#[fg=green](#S) '
 set-option -g status-right '#[fg=cyan]#(whoami)@#H #[fg=white]%H:%M %d-%b-%y'
-
-# Pane border
-set-option -g pane-border-fg black
-set-option -g pane-active-border-fg green
